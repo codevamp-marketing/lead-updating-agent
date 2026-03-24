@@ -1,0 +1,5 @@
+# Core — Lead Ranking Agent (LISTEN/NOTIFY mode)
+supabase          # Supabase REST client for ScoringRule reads + Lead writes
+httpx             # Async HTTP client for PATCH calls to NestJS CRM API
+psycopg2-binary   # Direct Postgres connection for LISTEN/NOTIFY
+python-dotenv     # Load .env file
