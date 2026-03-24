@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Command to run the application
-CMD ["python", "lead_ranking_agent.py"]
+CMD ["python", "lead_updating_agent.py"]

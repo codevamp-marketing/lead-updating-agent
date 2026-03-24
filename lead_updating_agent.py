@@ -6,10 +6,14 @@ from datetime import datetime
 
 import psycopg2
 from supabase import create_client
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # ── ENV CONFIG ─────────────────────────────────────────────
-SUPABASE_URL = "https://rthwmoayizwgfqcsbsip.supabase.co"
-SUPABASE_SERVICE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0aHdtb2F5aXp3Z2ZxY3Nic2lwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjAwNTQ3NiwiZXhwIjoyMDg3NTgxNDc2fQ.Ajhbdom6w4cLFK8WdY-jtAcivV98UVXki-U7IEueXOQ"
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 
@@ -57,7 +61,7 @@ def get_next_action(priority: str) -> str:
 
 async def process_activity(activity: dict):
     try:
-        lead_id = activity.get("lead_id")
+        lead_id = activity.get("leadId")
         activity_type = activity.get("type")
         description = (activity.get("description") or "").lower()
 
@@ -123,7 +127,7 @@ async def process_activity(activity: dict):
         }).eq("id", lead_id).execute()
 
         # ── Mark Activity Processed ───────────────────────
-        supabase.table("activities").update({
+        supabase.table("Activity").update({
             "processed": True
         }).eq("id", activity.get("id")).execute()
 
@@ -193,7 +197,7 @@ async def main():
     print("=" * 60)
 
     try:
-        rows = supabase.table("activities").select("id").limit(1).execute()
+        rows = supabase.table("Activity").select("id").limit(1).execute()
         print(f"[✓] Supabase OK (rows: {len(rows.data or [])})")
     except Exception as e:
         print(f"[!] Supabase error: {e}")

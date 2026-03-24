@@ -1,0 +1,23 @@
+# Exclude environment files
+.env
+
+# Exclude git
+.git
+.gitignore
+
+# Exclude Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Exclude IDE files
+.vscode
+.idea
+
+# Exclude logs
+*.log
+
+.venv
+venv/
+env/
